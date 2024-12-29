@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<bean id="sqlSessionFactoryMariaDB" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceMariaDB" />
+		<!-- <property name="configLocation" value="classpath:/com/home/study/test1/sqlmap/mariadb-config.xml" /> -->
+		<property name="typeAliasesPackage" value="com.home.study.test1.**.model" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:/com/home/study/test1/sqlmap/mappers/mariadb/**/*Mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="sqlSessionMariaDB" class="org.mybatis.spring.SqlSessionTemplate">
+		<qualifier value="sqlSessionMariaDB" />
+		<constructor-arg index="0" ref="sqlSessionFactoryMariaDB" />
+	</bean>
+</beans>

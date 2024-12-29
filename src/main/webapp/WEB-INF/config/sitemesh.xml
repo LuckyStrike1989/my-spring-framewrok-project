@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<sitemesh>
+	<!-- 기본 페이지 -->
+	<mapping decorator="/WEB-INF/views/decorators/default/defaultDecorator.jsp"/>
+
+	<!-- 메인 페이지 -->
+	<mapping path="/index.do" decorator="/WEB-INF/views/decorators/default/mainDecorator.jsp"/>
+
+	<!-- sitemesh 예외 -->
+	<mapping path="/*.html" exclude="true"/>
+	<mapping path="/*.htm" exclude="true"/>
+	<mapping path="/*.js" exclude="true"/>
+	<mapping path="/*.css" exclude="true"/>
+</sitemesh>
