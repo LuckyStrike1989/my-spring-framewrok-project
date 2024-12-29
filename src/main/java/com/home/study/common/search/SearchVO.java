@@ -24,6 +24,11 @@ public class SearchVO implements Serializable{
 	 * 사용 여부
 	 */
 	private String useYesNo = "";
+	
+	/**
+	 * 페이징 객체
+	 */
+	private PagingVO pagingVO = null;
 
 	public String getSearchType() {
 		return searchType;
@@ -55,5 +60,13 @@ public class SearchVO implements Serializable{
 
 	public void setUseYesNo(String useYesNo) {
 		this.useYesNo = useYesNo;
+	}
+
+	public PagingVO getPagingVO() {
+		return pagingVO;
+	}
+
+	public void setPagingVO(PagingVO pagingVO) {
+		this.pagingVO = pagingVO;
 	}
 }

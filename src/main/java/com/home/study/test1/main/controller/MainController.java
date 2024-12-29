@@ -22,7 +22,7 @@ public class MainController {
 	private IBoardService boardService;
 	
 	@RequestMapping("/index")
-	public String mainIndex(@ModelAttribute("boardSearchVO") BoardSearchVO boardSearchVO, ModelMap model) {
+	public String mainIndex(@ModelAttribute("boardSearch") BoardSearchVO boardSearchVO, ModelMap model) {
 		String searchType = boardSearchVO.getSearchType();
 		if (searchType.isEmpty()) {
 			searchType = "subject";
