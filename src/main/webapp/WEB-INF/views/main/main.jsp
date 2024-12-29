@@ -18,11 +18,15 @@
 			.board form input[type="text"] { padding: 4px 4px; width: 200px; }
 			.board form button { display: inline-flex; height: 27px; font-size: 14px; }
 			.board form .search-result { display: flex; justify-content: space-between; margin-top: 10px; }
+			.board ul.pagination { display: flex; list-style: none; padding: 0; justify-content: center!important; flex-wrap: wrap; }
+			.board ul.pagination li.page-item a { display: block; padding: 0.5em 0.75em; border: 1px solid #dee2e6; margin-left: -1px; text-decoration: none; color: #333; }
+			.board ul.pagination li.page-item.active a  { color: #fff; background-color: #0d6efd; }
 		</style>
 	</head>
 	<body>
 		<div class="board">
 			<form:form modelAttribute="boardSearch" autocomplete="off">
+				<form:hidden path="pagingVO.pageNo" />
 				<div>
 					<form:select path="searchType">
 						<form:option value="subject" label="제목" />
@@ -66,16 +70,34 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="boardItem" items="${boardList}" varStatus="status">
-					<tr>
-						<td>${fn:length(boardList) - status.count + 1}</td>
-						<td>${boardItem.subject}</td>
-						<td>${boardItem.registrationId}</td>
-						<td>${boardItem.registrationDateTime}</td>
-					</tr>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${empty boardList}">
+							<tr><td colspan="4">검색된 게시물이 없습니다.</td></tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="boardItem" items="${boardList}" varStatus="status">
+							<tr class="board-item" data-sequence="${boardItem.sequence}">
+								<td>${boardSearch.pagingVO.recordTotalCount - ((boardSearch.pagingVO.pageNo - 1) * boardSearch.pagingVO.recordCountPerPage) - status.count + 1}</td>
+								<td>${boardItem.subject}</td>
+								<td>${boardItem.registrationId}</td>
+								<td>${boardItem.registrationDateTime}</td>
+							</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</tbody>
 			</table>
+			<c:if test="${not empty boardList}">
+				<div>
+					<ul id="boardPagination" class="pagination">
+						<c:forEach var="page" begin="1" end="${boardSearch.pagingVO.pageLastNo}" step="1">
+							<li class="page-item<c:if test="${boardSearch.pagingVO.pageNo == page}"> active</c:if>">
+								<a class="page-link" data-pageno="${page}" href="javascript:void(0)">${page}</a>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</c:if>
 		</div>
 		<script type="text/javascript">
 			$(function() {
@@ -84,13 +106,22 @@
 					$(this).attr("disabled", "disabled");
 					boardSearch.submit();
 				});
+				
 				$('#searchKeyword').keypress(function(event){
 					if (13 == event.which) {
 						$('#searchBtn').click();
 						return false;
 					}
 				});
+				
 				$('select[name="pagingVO.recordCountPerPage"]').change(function(event) {
+					boardSearch.submit();
+				});
+				
+				$('#boardPagination .page-link').click(function(event) {
+					event.preventDefault();
+					event.stopPropagation();
+					boardSearch.find('input:hidden[name="pagingVO.pageNo"]').val($(this).attr("data-pageno"));
 					boardSearch.submit();
 				});
 			});
