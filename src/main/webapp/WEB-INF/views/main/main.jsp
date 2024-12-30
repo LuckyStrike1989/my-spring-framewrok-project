@@ -21,12 +21,18 @@
 			.board ul.pagination { display: flex; list-style: none; padding: 0; justify-content: center!important; flex-wrap: wrap; }
 			.board ul.pagination li.page-item a { display: block; padding: 0.5em 0.75em; border: 1px solid #dee2e6; margin-left: -1px; text-decoration: none; color: #333; }
 			.board ul.pagination li.page-item.active a  { color: #fff; background-color: #0d6efd; }
+			.board ul.pagination li.page-item:first-child a.page-link { border-top-left-radius: 0.5em; border-bottom-left-radius: 0.5em; }
+			.board ul.pagination li.page-item:last-child a.page-link { border-top-right-radius: 0.5em; border-bottom-right-radius: 0.5em; }
+			.board ul.pagination li.disabled { pointer-events: none; }
+			.board ul.pagination li.disabled a { color: #cccccc; }
+			.board ul.pagination li.page-item.active a { color: #fff; background-color: #0d6efd; pointer-events: none; }
 		</style>
 	</head>
 	<body>
 		<div class="board">
 			<form:form modelAttribute="boardSearch" autocomplete="off">
-				<form:hidden path="pagingVO.pageNo" />
+				<form:hidden path="paginationVO.pageNo" />
+				<form:hidden path="paginationVO.pageLastNo" />
 				<div>
 					<form:select path="searchType">
 						<form:option value="subject" label="제목" />
@@ -41,10 +47,10 @@
 				</div>
 				<div class="search-result">
 					<div>
-						검색 결과 : ${boardSearch.pagingVO.recordTotalCount}건
+						검색 결과 : ${boardSearch.paginationVO.recordTotalCount}건
 					</div>
 					<div>
-						<form:select path="pagingVO.recordCountPerPage">
+						<form:select path="paginationVO.recordCountPerPage">
 							<form:option value="5" label="5" />
 							<form:option value="10" label="10" />
 							<form:option value="25" label="25" />
@@ -77,7 +83,7 @@
 						<c:otherwise>
 							<c:forEach var="boardItem" items="${boardList}" varStatus="status">
 							<tr class="board-item" data-sequence="${boardItem.sequence}">
-								<td>${boardSearch.pagingVO.recordTotalCount - ((boardSearch.pagingVO.pageNo - 1) * boardSearch.pagingVO.recordCountPerPage) - status.count + 1}</td>
+								<td>${boardSearch.paginationVO.recordTotalCount - ((boardSearch.paginationVO.pageNo - 1) * boardSearch.paginationVO.recordCountPerPage) - status.count + 1}</td>
 								<td>${boardItem.subject}</td>
 								<td>${boardItem.registrationId}</td>
 								<td>${boardItem.registrationDateTime}</td>
@@ -90,11 +96,15 @@
 			<c:if test="${not empty boardList}">
 				<div>
 					<ul id="boardPagination" class="pagination">
-						<c:forEach var="page" begin="1" end="${boardSearch.pagingVO.pageLastNo}" step="1">
-							<li class="page-item<c:if test="${boardSearch.pagingVO.pageNo == page}"> active</c:if>">
-								<a class="page-link" data-pageno="${page}" href="javascript:void(0)">${page}</a>
+						<li class="page-item<c:if test="${!boardSearch.paginationVO.isEnablePageFirstNo()}"> disabled</c:if>"><a class="page-link page-first" data-pageno="1" href="javascript:void(0)">First</a></li>
+						<li class="page-item<c:if test="${!boardSearch.paginationVO.isEnablePrevPageSizeNo()}"> disabled</c:if>"><a class="page-link page-prev" data-pageno="${boardSearch.paginationVO.prevPageSizeNo}" href="javascript:void(0)">&lt;</a></li>
+						<c:forEach var="page" begin="${boardSearch.paginationVO.pageStartNo}" end="${boardSearch.paginationVO.pageEndNo}" step="1">
+							<li class="page-item<c:if test="${boardSearch.paginationVO.pageNo == page}"> active</c:if>">
+								<a class="page-link page-no" data-pageno="${page}" href="javascript:void(0)">${page}</a>
 							</li>
 						</c:forEach>
+						<li class="page-item<c:if test="${!boardSearch.paginationVO.isEnableNextPageSizeNo()}"> disabled</c:if>"><a class="page-link page-next" data-pageno="${boardSearch.paginationVO.nextPageSizeNo}" href="javascript:void(0)">&gt;</a></li>
+						<li class="page-item<c:if test="${!boardSearch.paginationVO.isEnablePageLastNo()}"> disabled</c:if>"><a class="page-link page-last" data-pageno="${boardSearch.paginationVO.pageLastNo}" href="javascript:void(0)">Last</a></li>
 					</ul>
 				</div>
 			</c:if>
@@ -114,15 +124,24 @@
 					}
 				});
 				
-				$('select[name="pagingVO.recordCountPerPage"]').change(function(event) {
+				$('select[name="paginationVO.recordCountPerPage"]').change(function(event) {
 					boardSearch.submit();
 				});
 				
 				$('#boardPagination .page-link').click(function(event) {
 					event.preventDefault();
 					event.stopPropagation();
-					boardSearch.find('input:hidden[name="pagingVO.pageNo"]').val($(this).attr("data-pageno"));
-					boardSearch.submit();
+					var pageLastNo = boardSearch.find('input:hidden[name="paginationVO.pageLastNo"]').val();
+					var pageNo = boardSearch.find('input:hidden[name="paginationVO.pageNo"]').val();
+					var moveToPageNo = $(this).attr("data-pageno");
+					
+					if ((pageNo == moveToPageNo) || (pageNo == 1 && moveToPageNo == 1) || (pageNo == pageLastNo && moveToPageNo == pageLastNo)) {
+						return;
+					}
+					if (moveToPageNo > 0 && moveToPageNo <= pageLastNo) {
+						boardSearch.find('input:hidden[name="paginationVO.pageNo"]').val(moveToPageNo);
+						boardSearch.submit();
+					}
 				});
 			});
 		</script>

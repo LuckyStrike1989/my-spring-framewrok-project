@@ -67,7 +67,7 @@
 		       DATE_FORMAT(BRD.REG_DTM, '%Y-%m-%d %H:%i:%s') AS REG_DTM
 		  FROM INT_BOARD_TB BRD
 		  <include refid="whereBoardSearch"/>
-		  LIMIT #{pagingVO.pageStartRecordNo}, #{pagingVO.recordCountPerPage}
+		  LIMIT #{paginationVO.pageStartRecordNo}, #{paginationVO.recordCountPerPage}
 	</select>
 	
 </mapper>

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.home.study.common.search.PagingVO;
+import com.home.study.common.search.PaginationVO;
 import com.home.study.test1.board.dao.IBoardDao;
 import com.home.study.test1.board.model.BoardSearchVO;
 import com.home.study.test1.board.model.BoardVO;
@@ -19,16 +19,16 @@ public class BoardServiceImpl implements IBoardService {
 	
 	@Override
 	public List<BoardVO> selectBoardList(BoardSearchVO boardSearchVO) {
-		if (boardSearchVO.getPagingVO() == null) {
-			boardSearchVO.setPagingVO(new PagingVO());
+		if (boardSearchVO.getPaginationVO() == null) {
+			boardSearchVO.setPaginationVO(new PaginationVO());
 		}
 		
 		int count = boardDao.selectBoardListCount(boardSearchVO);
-		boardSearchVO.getPagingVO().setRecordTotalCount(count);
+		boardSearchVO.getPaginationVO().setRecordTotalCount(count);
 		
 		List<BoardVO> boardList = null;
 		if (count > 0) {
-			boardSearchVO.getPagingVO().processZero();
+			boardSearchVO.getPaginationVO().processZero();
 			boardList = boardDao.selectBoardList(boardSearchVO);
 		}
 		

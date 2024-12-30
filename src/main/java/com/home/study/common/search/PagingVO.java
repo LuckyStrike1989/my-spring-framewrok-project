@@ -8,32 +8,32 @@ public class PagingVO implements Serializable{
 	/**
 	 * 전체 레코드 수
 	 */
-	private int recordTotalCount = 0;
+	protected int recordTotalCount = 0;
 
 	/**
 	 * 페이지 레코드 수(기본값 : 10)
 	 */
-	private int recordCountPerPage = 10;
+	protected int recordCountPerPage = 10;
 
 	/**
 	 * 페이지 번호
 	 */
-	private int pageNo = 1;
+	protected int pageNo = 1;
 
 	/**
 	 * 페이지의 레코드 시작 번호
 	 */
-	private int pageStartRecordNo = 0;
+	protected int pageStartRecordNo = 0;
 
 	/**
 	 * 페이지의 레코드 종료 번호
 	 */
-	private int pageEndRecordNo = 0;
+	protected int pageEndRecordNo = 0;
 
 	/**
 	 * 페이지 마지막 번호
 	 */
-	private int pageLastNo = 0;
+	protected int pageLastNo = 0;
 
 	public int getRecordTotalCount() {
 		return recordTotalCount;
@@ -101,7 +101,7 @@ public class PagingVO implements Serializable{
 	 * 페이징을 처리합니다.
 	 * @param zero 제로 베이스 여부 (true : mariaDB, mySQL은 zero 베이스, false : oracle은 1 베이스)
 	 */
-	public void process(boolean zero) {
+	protected void process(boolean zero) {
 		// 레코드 번호
 		int startBase = 1;
 		int endBase = 0;
@@ -112,21 +112,21 @@ public class PagingVO implements Serializable{
 		}
 		
 		// 페이지 마지막 번호 설정
-		// 나머지가 있으면 페이지 마지막 번호를 증가 시킴
+		// 나머지가 있으면 페이지 마지막 번호를 증가 시킨다.
 		pageLastNo = (recordTotalCount / recordCountPerPage) + (recordTotalCount % recordCountPerPage == 0 ? 0 : 1);
 		if (pageLastNo > 0) {
-			if (pageNo <= pageLastNo) {
-				// 페이지의 레코드 시작 번호 설정
-				pageStartRecordNo = ((pageNo - 1) * recordCountPerPage) + startBase;
-				// 페이지의 레코드 종료 번호 설정
-				pageEndRecordNo = pageNo * recordCountPerPage + endBase;
-				// 페이지의 레코드 종료 번호가 전체 레코드 수보다 크면 전체 레코드 수로 변경
-				if (pageEndRecordNo > (recordTotalCount + endBase)) {
-					pageEndRecordNo = recordTotalCount + endBase;
-				}
-			} else {
-				pageStartRecordNo = 0;
-				pageEndRecordNo = 0;
+			// 현재 페이지 번호가 페이지 마지막 번호도 크면 페이지 마지막 번호로 변경
+			// 현재 페이지 번호가 페이지 마지막 번호와 같을 때 삭제가 발생할 경우 전체 레코드 수가 줄어 들어 페이지 마지막 번호가 줄어 들 경우 페이지 마지막 번호로 변경
+			if (pageNo > pageLastNo) {
+				pageNo = pageLastNo;
+			}
+			// 페이지의 레코드 시작 번호 설정
+			pageStartRecordNo = ((pageNo - 1) * recordCountPerPage) + startBase;
+			// 페이지의 레코드 종료 번호 설정
+			pageEndRecordNo = pageNo * recordCountPerPage + endBase;
+			// 페이지의 레코드 종료 번호가 전체 레코드 수보다 크면 전체 레코드 수로 변경
+			if (pageEndRecordNo > (recordTotalCount + endBase)) {
+				pageEndRecordNo = recordTotalCount + endBase;
 			}
 		} else {
 			pageStartRecordNo = 0;
