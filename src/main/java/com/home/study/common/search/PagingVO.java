@@ -2,6 +2,11 @@ package com.home.study.common.search;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.extern.log4j.Log4j2;
+
+@Data
 public class PagingVO implements Serializable{
 	private static final long serialVersionUID = -8320352229077385027L;
 	
@@ -34,54 +39,6 @@ public class PagingVO implements Serializable{
 	 * 페이지 마지막 번호
 	 */
 	protected int pageLastNo = 0;
-
-	public int getRecordTotalCount() {
-		return recordTotalCount;
-	}
-
-	public void setRecordTotalCount(int recordTotalCount) {
-		this.recordTotalCount = recordTotalCount;
-	}
-
-	public int getRecordCountPerPage() {
-		return recordCountPerPage;
-	}
-
-	public void setRecordCountPerPage(int recordCountPerPage) {
-		this.recordCountPerPage = recordCountPerPage;
-	}
-
-	public int getPageNo() {
-		return pageNo;
-	}
-
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
-	}
-
-	public int getPageStartRecordNo() {
-		return pageStartRecordNo;
-	}
-
-	public void setPageStartRecordNo(int pageStartRecordNo) {
-		this.pageStartRecordNo = pageStartRecordNo;
-	}
-
-	public int getPageEndRecordNo() {
-		return pageEndRecordNo;
-	}
-
-	public void setPageEndRecordNo(int pageEndRecordNo) {
-		this.pageEndRecordNo = pageEndRecordNo;
-	}
-
-	public int getPageLastNo() {
-		return pageLastNo;
-	}
-
-	public void setPageLastNo(int pageLastNo) {
-		this.pageLastNo = pageLastNo;
-	}
 	
 	/**
 	 * one 베이스(oracle)로 페이징을 처리합니다.

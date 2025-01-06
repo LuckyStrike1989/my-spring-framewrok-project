@@ -2,6 +2,11 @@ package com.home.study.common.search;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.extern.log4j.Log4j2;
+
+@Data
 public class PaginationVO extends PagingVO implements Serializable{
 	private static final long serialVersionUID = -8322117144582942029L;
 	
@@ -49,78 +54,6 @@ public class PaginationVO extends PagingVO implements Serializable{
 	 * 전체 페이지 마지막 번호 활성화 여부
 	 */
 	private boolean enablePageLastNo = false;
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public int getPageStartNo() {
-		return pageStartNo;
-	}
-
-	public void setPageStartNo(int pageStartNo) {
-		this.pageStartNo = pageStartNo;
-	}
-
-	public int getPageEndNo() {
-		return pageEndNo;
-	}
-
-	public void setPageEndNo(int pageEndNo) {
-		this.pageEndNo = pageEndNo;
-	}
-	
-	public int getPrevPageSizeNo() {
-		return prevPageSizeNo;
-	}
-
-	public void setPrevPageSizeNo(int prevPageSizeNo) {
-		this.prevPageSizeNo = prevPageSizeNo;
-	}
-
-	public int getNextPageSizeNo() {
-		return nextPageSizeNo;
-	}
-
-	public void setNextPageSizeNo(int nextPageSizeNo) {
-		this.nextPageSizeNo = nextPageSizeNo;
-	}
-
-	public boolean isEnablePrevPageSizeNo() {
-		return enablePrevPageSizeNo;
-	}
-
-	public void setEnablePrevPageSizeNo(boolean enablePrevPageSizeNo) {
-		this.enablePrevPageSizeNo = enablePrevPageSizeNo;
-	}
-
-	public boolean isEnableNextPageSizeNo() {
-		return enableNextPageSizeNo;
-	}
-
-	public void setEnableNextPageSizeNo(boolean enableNextPageSizeNo) {
-		this.enableNextPageSizeNo = enableNextPageSizeNo;
-	}
-
-	public boolean isEnablePageFirstNo() {
-		return enablePageFirstNo;
-	}
-
-	public void setEnablePageFirstNo(boolean enablePageFirstNo) {
-		this.enablePageFirstNo = enablePageFirstNo;
-	}
-
-	public boolean isEnablePageLastNo() {
-		return enablePageLastNo;
-	}
-
-	public void setEnablePageLastNo(boolean enablePageLastNo) {
-		this.enablePageLastNo = enablePageLastNo;
-	}
 
 	@Override
 	protected void process(boolean zero) {

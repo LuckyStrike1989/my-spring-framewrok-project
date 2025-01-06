@@ -2,6 +2,12 @@ package com.home.study.common.search;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.extern.log4j.Log4j2;
+
+@Data
+@AllArgsConstructor
 public class SearchVO implements Serializable{
 	private static final long serialVersionUID = -5674159496405556527L;
 	
