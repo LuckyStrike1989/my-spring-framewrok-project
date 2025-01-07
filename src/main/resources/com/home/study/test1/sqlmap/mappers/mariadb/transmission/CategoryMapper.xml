@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.home.study.test1.transmission.mapper.mariadb.CategoryMapper">
+	<insert id="insertCategoryItem" useGeneratedKeys="true" keyProperty="seq" parameterType="CategoryVO">
+        INSERT INTO TB_CATEGORY /* [CategoryMapper.xml] insertCategoryItem 카테고리 등록 */
+        (	
+            CATE_ID,
+            CATE,
+            UP_TEMP_FILE_PATH,
+            UP_FILE_PATH,
+            UP_CHUNK_SIZE,
+            UP_USE_CRYPTO,
+            DOWN_TEMP_FILE_PATH,
+            DOWN_CHUNK_SIZE,
+            DOWN_USE_CRYPTO,
+            REG_ID
+        )
+        VALUES
+        (
+            #{categoryID},
+            #{category},
+            #{upTempFilePath},
+            #{upFilePath},
+            #{upChunkSize},
+            #{upUseCrypto},
+            #{downTempFilePath},
+            #{downChunkSize},
+            #{downUseCrypto},
+            #{regID}
+        );
+    </insert>
+    
+    <!--
+        카테고리 리스트 검색 조건
+    -->
+    <sql id="whereCategoryListSearch">
+        <where>
+            1=1
+            <if test='searchKeyword != null and searchKeyword != ""'>
+                <choose>
+                    <when test='searchType != null and searchType == "categoryName"'>
+                        <choose>
+                            <when test='searchCondition != null and searchCondition == "like"'>
+                                AND A.CATE LIKE CONCAT('%',#{searchKeyword},'%')
+                            </when>
+                            <otherwise>
+                                AND A.CATE = #{searchKeyword}
+                            </otherwise>
+                        </choose>
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </sql>
+    
+    <!--
+        카테고리 맵
+    -->
+    <resultMap id="mapCategoryList" type="CategoryVO">
+        <result column="SEQ" 					property="seq"/>
+        <result column="CATE_ID" 				property="categoryID"/>
+        <result column="CATE" 					property="category"/>
+        <result column="UP_TEMP_FILE_PATH" 		property="upTempFilePath"/>
+        <result column="UP_FILE_PATH" 			property="upFilePath"/>
+        <result column="UP_CHUNK_SIZE" 			property="upChunkSize"/>
+        <result column="UP_USE_CRYPTO" 			property="upUseCrypto"/>
+        <result column="DOWN_TEMP_FILE_PATH" 	property="downTempFilePath"/>
+        <result column="DOWN_CHUNK_SIZE" 		property="downChunkSize"/>
+        <result column="DOWN_USE_CRYPTO" 		property="downUseCrypto"/>
+        <result column="REG_ID" 				property="registrationId"/>
+        <result column="REG_DTM" 				property="registrationDateTime"/>
+        <result column="MOD_DTM" 				property="modificationDateTime"/>
+    </resultMap>
+    
+    <select id="selectCategoryListCount" parameterType="CategorySearchVO" resultType="int">
+        SELECT 	/* [CategoryMapper.xml] selectCategoryListCount 카테고리 리스트 개수를 조회 */
+        		COUNT(A.SEQ)	
+          FROM TB_CATEGORY A
+        <include refid="whereCategoryListSearch"/>
+    </select>
+    
+    <select id="selectCategoryList" parameterType="CategorySearchVO" resultMap="mapCategoryList">
+        SELECT 	/* [CategoryMapper.xml] selectCategoryList 카테고리를 조회 */
+        		A.CATE_ID,
+               	A.CATE,
+               	A.REG_DTM
+          FROM 	TB_CATEGORY A
+        <include refid="whereCategoryListSearch"/>
+         ORDER BY A.REG_DTM DESC
+        <if test="pagination != null">
+         LIMIT #{pagination.pageStartRecordNo}, #{pagination.recordCountPerPage}
+        </if>
+    </select>
+</mapper>

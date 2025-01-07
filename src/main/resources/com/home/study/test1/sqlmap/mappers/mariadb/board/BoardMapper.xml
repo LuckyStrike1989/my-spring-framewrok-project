@@ -6,13 +6,13 @@
 		게시판 맵
 	-->
 	<resultMap id="mapBoardList" type="BoardVO">
-		<result column="BRD_SEQ" property="sequence"/>
-		<result column="BRD_SUBJECT" property="subject"/>
-		<result column="BRD_CONTENT" property="content"/>
-		<result column="REG_ID" property="registrationId"/>
-		<result column="REG_DTM" property="registrationDateTime"/>
-		<result column="MOD_ID" property="modificationId"/>
-		<result column="MOD_DTM" property="modificationDateTime"/>
+		<result column="BRD_SEQ" 		property="sequence"/>
+		<result column="BRD_SUBJECT" 	property="subject"/>
+		<result column="BRD_CONTENT" 	property="content"/>
+		<result column="REG_ID" 		property="registrationId"/>
+		<result column="REG_DTM" 		property="registrationDateTime"/>
+		<result column="MOD_ID" 		property="modificationId"/>
+		<result column="MOD_DTM" 		property="modificationDateTime"/>
 	</resultMap>
 	
 	<sql id="whereBoardSearch">
