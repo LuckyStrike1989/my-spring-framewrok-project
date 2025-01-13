@@ -1,0 +1,16 @@
+.uploadPanel {padding: 10px 10px;}
+.file_list {width: 100%; max-width: 800px; height: 100px; border-radius: 10px; border: 1px solid #333; padding: 10px 10px;}
+.file_list .fileInfo {display:grid; grid-template-columns:auto 30%; column-gap:20px; align-items:center;}
+.file_list .fileInfo > .fileName {color:#555555; overflow:hidden; /*white-space:nowrap; text-overflow:ellipsis;*/ word-wrap:break-word;}
+.file_list .fileInfo > .fileSize {text-align:right; color:#555555;}
+.file_list .uploadProgress {position:relative; display:block; width: 100%; height: 22px; background-color:#efefef; margin-top: 4px; border-radius: 20px;}
+.file_list .uploadProgress > .uploadBar {position:relative; display:block; width: 1%; height: 22px; background-color:#2a99e8; border-radius: 20px; color: #fff; text-align: center;}
+.file_list .uploadButtons {position: relative; display: block; width: 100%; margin-top: 4px; text-align: right;}
+.file_list .uploadButtons button.hidden {display:none;}
+.file_list .uploadButtons button {margin-left: 4px;}
+.file_list .uploadButtons button:first-child {margin-left: 0px;}
+.file_list .fileError .fileInfo > .fileName {color:#999999;}
+.file_list .fileError .fileInfo > .fileSize {color:#999999;}
+.file_list .fileError .uploadProgress > .uploadBar {background-color:#999999;}
+.file_list .message {color:#555555;}
+.file_list .fileError .errorMessage {color:#999999;}

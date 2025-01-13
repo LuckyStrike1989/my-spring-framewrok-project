@@ -1,0 +1,8 @@
+.file_list .fileInfo {display: grid; grid-template-columns: auto 90px; column-gap: 0px; align-items: center; height: 45px; border: 1px solid #999999; margin: 10px 0px;}
+.file_list .fileInfo > .fileName {color: #555555; overflow: hidden; word-wrap: break-word; position: relative; height: 100%;}
+.file_list .fileInfo > .fileName > .downloadFileName {position: absolute; top: 0; z-index: 2; height: 100%; line-height: 45px; padding: 0px 10px;}
+.file_list .fileInfo > .fileName > .downloadProgress {position: absolute; top: 0; z-index: 1; display: block; width: 100%; height: 100%;}
+.file_list .fileInfo > .fileName > .downloadProgress > .downloadBar {position: relative; display: block; width: 0%; height: 100%; background-color: #ccdfec;}
+.file_list .fileInfo > .fileName > .downloadProgress > .downloadPercent {position: absolute; right: 0; top: 0; height: 100%; line-height: 45px; margin-right: 10px;}
+.file_list .fileInfo > .downloadButtons {padding: 0px 10px; background-color: #efefef; height: 100%; line-height: 40px; text-align: right;}
+.file_list .fileInfo > .downloadButtons button.hidden {display:none;}

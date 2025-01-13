@@ -14,10 +14,10 @@ import com.home.study.test1.transmission.model.CategoryVO;
 import com.home.study.test1.transmission.model.GotoVO;
 
 @Controller
-@RequestMapping("/test/category")
+@RequestMapping("/transmission/category")
 public class CategoryController {
 	
-	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
 	public String index(
 		HttpServletRequest request
 		, HttpServletResponse response
@@ -25,7 +25,7 @@ public class CategoryController {
 		, @ModelAttribute("gotoForm") GotoVO gotoFrom
 		, ModelMap model
 	) {
-		return "test/category/index";
+		return "transmission/category/index";
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -35,8 +35,7 @@ public class CategoryController {
         , @ModelAttribute("categoryForm") CategoryVO categoryVO
         , @ModelAttribute("gotoForm") GotoVO gotoForm, ModelMap model
     ) {
-
         model.addAttribute("mode", "add");
-        return "test/category/form";
+        return "transmission/category/form";
     }
 }
