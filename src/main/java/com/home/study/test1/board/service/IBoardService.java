@@ -7,4 +7,6 @@ import com.home.study.test1.board.model.BoardVO;
 
 public interface IBoardService {
 	List<BoardVO> selectBoardList(BoardSearchVO boardSearchVO);
+	
+	boolean insertBoardItem(BoardVO boardVO);
 }

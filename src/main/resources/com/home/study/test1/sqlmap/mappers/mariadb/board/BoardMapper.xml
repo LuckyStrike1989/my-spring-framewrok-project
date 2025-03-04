@@ -70,4 +70,21 @@
 		  LIMIT #{paginationVO.pageStartRecordNo}, #{paginationVO.recordCountPerPage}
 	</select>
 	
+	<!--
+		게시물을 등록합니다.
+	-->
+	<insert id="insertBoardItem" useGeneratedKeys="true" keyProperty="sequence" parameterType="BoardVO">
+		INSERT INTO INT_BOARD_TB /* [BoardMapper.xml] insertBoardItem 게시물을 등록합니다 */
+		       (
+		        BRD_SUBJECT,
+		        BRD_CONTENT,
+		        REG_ID
+		       )
+		       VALUES
+		       (
+		        #{subject},
+		        #{content},
+		        #{registrationId}
+		       )
+	</insert>
 </mapper>

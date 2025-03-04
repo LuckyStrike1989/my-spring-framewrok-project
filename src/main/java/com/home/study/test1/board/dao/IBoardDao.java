@@ -9,4 +9,6 @@ public interface IBoardDao {
 	int selectBoardListCount(BoardSearchVO boardSearchVO);
 	
 	List<BoardVO> selectBoardList(BoardSearchVO boardSearchVO);
+	
+	int insertBoardItem(BoardVO boardVO);
 }

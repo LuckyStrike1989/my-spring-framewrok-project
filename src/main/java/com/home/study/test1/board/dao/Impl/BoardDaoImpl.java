@@ -29,4 +29,10 @@ public class BoardDaoImpl implements IBoardDao{
 	public List<BoardVO> selectBoardList(BoardSearchVO boardSearchVO) {
 		return sqlSession.selectList(SQL_FILE_PATH + "selectBoardList", boardSearchVO);
 	}
+
+	@Override
+	public int insertBoardItem(BoardVO boardVO) {
+		return sqlSession.insert(SQL_FILE_PATH + "insertBoardItem", boardVO);
+	}
+	
 }

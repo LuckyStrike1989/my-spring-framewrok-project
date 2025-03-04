@@ -6,6 +6,9 @@
 
 	<!-- 메인 페이지 -->
 	<mapping path="/index.do" decorator="/WEB-INF/views/decorators/default/mainDecorator.jsp"/>
+	
+	<!-- 게시판 페이지 -->
+	<mapping path="/board/*.do" decorator="/WEB-INF/views/decorators/default/mainDecorator.jsp"/>
 
 	<!-- sitemesh 예외 -->
 	<mapping path="/*.html" exclude="true"/>

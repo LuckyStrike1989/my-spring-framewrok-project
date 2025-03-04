@@ -26,10 +26,19 @@
 			.board ul.pagination li.disabled { pointer-events: none; }
 			.board ul.pagination li.disabled a { color: #cccccc; }
 			.board ul.pagination li.page-item.active a { color: #fff; background-color: #0d6efd; pointer-events: none; }
+			.buttons { position:relative; height:32px; margin-top:20px; }
+			.buttons > div.right { position:absolute; height:32px; right:0; }
+			.buttons > div > .button { overflow:visible; cursor:pointer; min-width:125px; height:32px; margin:0 2px; padding:0 15px; line-height:32px; font-size:14px; border:1px solid #dfdfdf; background:#fff; border-radius:10px; }
+			.buttons > div > .button.blue { color:#fff; border-color:#0099d2 !important; background:#0099d2 !important; }
 		</style>
 	</head>
 	<body>
 		<div class="board">
+			<div class="buttons">
+				<div class="right">
+					<button id="addBtn" class="button blue">등록</button>
+				</div>
+			</div>
 			<form:form modelAttribute="boardSearch" autocomplete="off">
 				<form:hidden path="paginationVO.pageNo" />
 				<form:hidden path="paginationVO.pageLastNo" />
@@ -142,6 +151,9 @@
 						boardSearch.find('input:hidden[name="paginationVO.pageNo"]').val(moveToPageNo);
 						boardSearch.submit();
 					}
+				});
+				$('#addBtn').click(function() {
+					$(location).attr("href", "/board/addform.do");
 				});
 			});
 		</script>
