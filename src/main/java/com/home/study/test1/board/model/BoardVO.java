@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import com.home.study.common.model.BaseEntity;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -17,6 +19,8 @@ public class BoardVO extends BaseEntity implements Serializable{
 	/**
 	 * 게시판 제목
 	 */
+	@NotNull(message="게시판 제목을 입력하세요.")
+	@NotEmpty(message="게시판 제목을 입력하세요.")
 	private String subject = "";
 	
 	/**

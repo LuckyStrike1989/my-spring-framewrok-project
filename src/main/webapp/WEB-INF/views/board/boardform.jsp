@@ -20,9 +20,9 @@
 			.form-input:valid { border: 1px solid #198754; }
 			.was-validated .form-input:invalid { border: 1px solid #dc3545; }
 			.was-validated .form-input:valid { border: 1px solid #198754; }
-			.invalid-feedback { display: none; width: 100%; margin-top: 4px; color: #dc3545; }
 			.was-validated .form-input.is-invalid { border: 1px solid #dc3545; }
 			.was-validated .form-input.is-invalid .invalid-feedback { display: block; }
+			.invalid-feedback { display: none; width: 100%; margin-top: 4px; color: #dc3545; }
 		</style>
 	</head>
 	<body>
@@ -82,7 +82,7 @@
 					$('#board').submit();
 					*/
 					
-					var registrationId = $('#registrationId')[0];
+					/*var registrationId = $('#registrationId')[0];
 					if (!registrationId.checkValidity()) {
 						if (registrationId.validity.valueMissing) {
 							registrationId.setCustomValidity('작성자 입력란에 아이디가 입력되지 않았습니다.\n아이디를 입력하세요.');
@@ -105,7 +105,7 @@
 						return;
 					}
 					$('#board').attr("action", "/board/addboard.do");
-					$('#board').submit();
+					$('#board').submit();*/
 					
 					
 					/*var boardForm = $('#board')[0];
@@ -118,17 +118,24 @@
 						console.log("에러가 없습니다.");
 					}*/
 					
-					/*var boardForm = $('#board');
-					if (!boardForm[0].checkValidity()) {
+					var boardForm = $('#board');
+					/*if (!boardForm[0].checkValidity()) {
 						boardForm.addClass('was-validated');
-					} else {
+					} else {*/
 						boardForm.attr("action", "/board/addboard.do");
 						boardForm.submit();
-					}*/
+					//}
 				});
 				$('#cancelBtn').click(function() {
-					window.history.go(-1);
+					// window.history.go(-1);
+					location.href = '/index.do';
 				});
+				<c:if test="${not empty errorInputId && not empty errorMessage}">
+				// $('#board').addClass('was-validated');
+				// $('#${errorInputId}')[0].setCustomValidity("${errorMessage}");
+				alert("${errorMessage}");
+				$("#${errorInputId}").focus();
+				</c:if>
 			});
 		</script>
 	</body>
