@@ -40,4 +40,9 @@ public class BoardServiceImpl implements IBoardService {
 		return (boardDao.insertBoardItem(boardVO) == 1) ? true : false;
 	}
 
+	@Override
+	public BoardVO selectBoardItem(BoardVO boardVO) {
+		return boardDao.selectBoardItem(boardVO);
+	}
+
 }

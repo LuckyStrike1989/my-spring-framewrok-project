@@ -13,6 +13,8 @@
 			.board table thead th { padding:8px 10px 10px 10px; vertical-align:middle; color:#1d4281; font-size:14px; border-bottom:1px solid #ccc; background:#f8f8f8; }
 			.board table tbody td { padding:7px 10px 9px 10px; text-align:center; vertical-align:middle; border-bottom:1px solid #ccc; font-size:14px; line-heighT:150%; }
 			.board table tbody td:nth-child(2) { text-align:left;}
+			.board table tbody tr:hover { background-color: #dddddd; }
+			.board table tbody tr.board-item { cursor: pointer; }
 			.board form { margin-bottom: 10px; }
 			.board form select { padding: 4px 4px; }
 			.board form input[type="text"] { padding: 4px 4px; width: 200px; }
@@ -152,9 +154,20 @@
 						boardSearch.submit();
 					}
 				});
+				
 				$('#addBtn').click(function() {
 					$(location).attr("href", "/board/addform.do");
 				});
+				
+				$('.board-item').click(function() {
+					$(location).attr("href", "/board/view.do?sequence=" + $(this).attr("data-sequence"));
+				});
+				
+				/*
+				$('.board-item').click(function() {
+					$(location).attr("href", "/board/view.do?sequence=" + $(this).data("sequence"));
+				});
+				*/
 			});
 		</script>
 	</body>

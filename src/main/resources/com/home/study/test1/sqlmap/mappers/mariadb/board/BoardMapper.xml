@@ -87,4 +87,21 @@
 		        #{registrationId}
 		       )
 	</insert>
+	
+	<!-- 
+		게시물을 가져옵니다.
+	 -->
+	 <select id="selectBoardItem" parameterType="BoardVO" resultMap="mapBoardList">
+	 	SELECT 	/* [BoardMapper.xml] insertBoardItem 게시물을 가져옵니다. */
+	 			BRD.BRD_SEQ
+	 			, BRD.BRD_SUBJECT
+	 			, BRD.BRD_CONTENT
+	 			, BRD.REG_ID
+	 			, DATE_FORMAT(BRD.REG_DTM, '%Y-%m-%d %H:%i:%s') AS REG_DTM
+	 			, COALESCE(BRD.MOD_ID, BRD.REG_ID) AS MOD_ID
+	 			, COALESCE(DATE_FORMAT(BRD.MOD_DTM, '%Y-%m-%d %H:%i:%s'), DATE_FORMAT(BRD.REG_DTM, '%Y-%m-%d %H:%i:%s')) AS MOD_DTM
+	 	FROM	INT_BOARD_TB BRD
+	 	WHERE	1=1
+	 			AND BRD.BRD_SEQ = #{sequence}
+	 </select>
 </mapper>

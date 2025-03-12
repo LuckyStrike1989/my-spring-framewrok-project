@@ -60,4 +60,14 @@ public class BoardController {
 		
 		return "redirect:/index.do";
 	}
+	
+	@RequestMapping(value="/view", method=RequestMethod.GET)
+	public String boardView(HttpServletRequest request, HttpServletResponse response,
+		@ModelAttribute("board") BoardVO boardVO, ModelMap model) {
+		
+		BoardVO boardItem = boardService.selectBoardItem(boardVO);
+		model.addAttribute("boardItem", boardItem);
+		
+		return "board/boardview";
+	}
 }

@@ -11,4 +11,6 @@ public interface IBoardDao {
 	List<BoardVO> selectBoardList(BoardSearchVO boardSearchVO);
 	
 	int insertBoardItem(BoardVO boardVO);
+	
+	BoardVO selectBoardItem(BoardVO boardVO);
 }

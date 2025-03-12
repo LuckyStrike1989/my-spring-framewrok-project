@@ -9,4 +9,6 @@ public interface IBoardService {
 	List<BoardVO> selectBoardList(BoardSearchVO boardSearchVO);
 	
 	boolean insertBoardItem(BoardVO boardVO);
+	
+	BoardVO selectBoardItem(BoardVO boardVO);
 }
